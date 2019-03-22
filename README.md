@@ -1,2 +1,3 @@
-# project-two
-project-two
+# Project 2
+
+Web Programming with Python and JavaScript
