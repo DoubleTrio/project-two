@@ -1,9 +1,50 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<ul id="votes col-9">
-</ul>
-<button data-vote="yes">Yes</button>
-<button data-vote="no">No</button>
-<button data-vote="maybe">Maybe</button>
+
+
+
+    {% if session["logged-in"] %}
+    
+        <form class="form-inline d-flex justify-content-end cinput" id="channelForm" method="post">
+            <div class="form-group container cinput">
+                <input type="text" class="form-control" placeholder="Channel name" name="channel" id="channelInput" required></input>
+                <button class="btn btn-primary" type="submit">Create channel...</button>
+            </div>
+        </form>
+
+
+        
+    <div class="col-9 chatHolder container">
+        <ol class="chatlog">
+            <li>Hello friend!</li>
+            <li>Hello friend!</li>
+        </ol>
+    </div>
+
+    <form action="{{ url_for('sendMessage') }}" method="post" class="mform form-inline">
+        <div class="form-group container minput">
+            <input type="text" class="form-control" placeholder="Message..." name="message" required></input>
+            <button class="btn btn-primary" type="submit">Send</button>
+        </div>
+    </form>
+
+    {% else %}
+    <form action="{{ url_for('usernameHandler') }}" method="post" class="form-inline">
+        <div class="form-group container uinput">
+            <input type="text" class="form-control" placeholder="Enter username" name="username" required></input>
+            <button class="btn btn-primary" type="submit">Login</button>
+        </div>
+    </form>
+    {% endif %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
 {% endblock %}

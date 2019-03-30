@@ -1,11 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Concert+One|Open+Sans');
 $skyBlue: #8EDCE6;
 $darkerBlue: #3A5C83;
 $lightOrange: #ECBA82;
+$yellow: #F1D302;
+$white: #F7F7F7;
+$grey: #6B6B6B;
 
-body {
-  color: $skyBlue;
-}
+$normal: 'Open Sans'; // sans-serif
 
-nav {
+$title: 'Concert One'; // cursive
+
+
+/* General */
+html, body {
   height: 100%;
+  width: 100%;
+  font-family: $normal, sans-serif;
 }
+
+/* Chat Menu */
+nav {
+  background-color: black;
+  color: white;
+  padding-left: 2em !important;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100vh;
+}
+
+.menu-heading {
+  font-family: $title, cursive;
+}
+
+.chatrooms {
+  padding-top: 5em;
+}
+
+.room {
+  display: block;
+  color: $white;
+  margin-top: 0.4em;
+}
+
+.room:hover {
+  color: $grey;
+  text-decoration: none;
+}
+
+ol {
+  padding-left: 0;
+}
+
+.tag {
+  color: #ECBA82;
+  font-family: $normal, sans-serif;
+}
+
+/*Body*/
+
+/*chat*/
+
+.chatlog {
+  height: 60vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 0.1em solid black;
+
+}
+
+.chatHolder {
+  padding-top: 3em;
+}
+
+.mform {
+  position: absolute;
+  bottom: 1em;
+  width: 100%;
+  
+}
+
+
+.form-inline .form-control {
+  width: 94%;
+}
+
+.cinput {
+  padding-top: 0.5em;
+  display: flex;
+  justify-content: flex-end;
+}
+.cinput.form-inline .form-control {
+  width: 20%;
+}
+
+
+.channelForm {
+  display: flex;
+  justify-content: flex-end;
+
+}
+
+.display-false {
+  display: none;
+}
+// @media (min-width: 576px) {
+//   .form-inline .form-control.uinput {
+//       width: 10% !important;
+//       display: inline-block;
+//       vertical-align: middle;
+//     }
+//   }

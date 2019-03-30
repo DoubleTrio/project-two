@@ -1,9 +1,85 @@
-body {
-  color: #8EDCE6;
+@import url("https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Concert+One|Open+Sans");
+/* General */
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: "Open Sans", sans-serif;
 }
 
+/* Chat Menu */
 nav {
-  height: 100%;
+  background-color: black;
+  color: white;
+  padding-left: 2em !important;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100vh;
+}
+
+.menu-heading {
+  font-family: "Concert One", cursive;
+}
+
+.chatrooms {
+  padding-top: 5em;
+}
+
+.room {
+  display: block;
+  color: #F7F7F7;
+  margin-top: 0.4em;
+}
+
+.room:hover {
+  color: #6B6B6B;
+  text-decoration: none;
+}
+
+ol {
+  padding-left: 0;
+}
+
+.tag {
+  color: #ECBA82;
+  font-family: "Open Sans", sans-serif;
+}
+
+/*Body*/
+/*chat*/
+.chatlog {
+  height: 60vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 0.1em solid black;
+}
+
+.chatHolder {
+  padding-top: 3em;
+}
+
+.mform {
+  position: absolute;
+  bottom: 1em;
+  width: 100%;
+}
+
+.form-inline .form-control {
+  width: 94%;
+}
+
+.cinput {
+  padding-top: 0.5em;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cinput.form-inline .form-control {
+  width: 20%;
+}
+
+.channelForm {
+  display: flex;
+  justify-content: flex-end;
 }
 
 /*# sourceMappingURL=styles.css.map */

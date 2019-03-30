@@ -1,24 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+    
 
-    // Connect to websocket
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port); // Represents http://127.0.0.1:5000/
-
-    // When connected, configure buttons
-    socket.on('connect', () => { alert('testing')
-
-    //     // Each button should emit a "submit vote" event
-    //     document.querySelectorAll('button').forEach(button => {
-    //         button.onclick = () => {
-    //             const selection = button.dataset.vote;
-    //             socket.emit('submit vote', {'selection': selection});
-    //         };
-    //     });
+    // socket.on('connect', () => {
+    //     console.log("Hello")
     // });
-    //
-    // // When a new vote is announced, add to the unordered list
-    // socket.on('announce vote', data => {
-    //     const li = document.createElement('li');
-    //     li.innerHTML = `Vote recorded: ${data.selection}`;
-    //     document.querySelector('#votes').append(li);
-    });
+    console.log(document.querySelector('#channelForm'))
+    document.querySelector('#channelForm').onsubmit = () => {
+        console.log("Good, it works")
+
+}
 });
+
+    //     const request = new XMLHttpRequest();
+    //     request.open('POST', '/createChannel');
+
+    //     request.onload = () => {
+    //         const data = JSON.parse(request.responseText);
+    //         console.log("Good, it works")
+            
+    //         if (data.success) {
+    //             document.querySelector(".room").innerHTML = data.channel;
+    //             console.log(data.channel);
+    //     }
+    // }
