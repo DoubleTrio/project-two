@@ -19,7 +19,7 @@ def index():
         session["logged-in"] = False
     return render_template("index.html")
 
-@app.route("/username", methods=["POST"])
+@app.route("/username", methods=['POST'])
 def usernameHandler():
     username = request.form.get('username')
     if len(username) > 10:
@@ -33,23 +33,19 @@ def usernameHandler():
         flash("Sorry, this username is already taken")
     return redirect(url_for('index'))
 
-@app.route("/message", methods=["POST"])
+@app.route("/message", methods=['POST'])
 def sendMessage():
     message = request.form.get('message')
-    flash(f"Hello {message}")
+
+    if message:
+        flash(f"Send this data: {message}")
     if message == "logout":
         session.clear()
     return redirect(url_for('index'))
 
 
-@app.route("/channel", methods=["POST"])
+@app.route("/channel", methods=['POST'])
 def createChannel():
     channel = request.form.get('channel')
-    flash(f"Created {channel}")
     return jsonify({"success": True, "channel": channel})
-
-                             
-# @socketio.on("submit vote")
-# def vote(data):
-#     selection = data["selection"]
-#     emit("announce vote", {"selection": selection}, broadcast=True)
+  

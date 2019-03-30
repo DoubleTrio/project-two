@@ -5,11 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // socket.on('connect', () => {
     //     console.log("Hello")
     // });
-    console.log(document.querySelector('#channelForm'))
-    document.querySelector('#channelForm').onsubmit = () => {
-        console.log("Good, it works")
+//     console.log(document.querySelector('#channelForm'))
+//     document.querySelector('#channelForm').onsubmit = () => {
+//         console.log("Good, it works")
 
-}
+// }
 });
 
     //     const request = new XMLHttpRequest();

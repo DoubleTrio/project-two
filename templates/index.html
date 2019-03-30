@@ -6,7 +6,7 @@
 
     {% if session["logged-in"] %}
     
-        <form class="form-inline d-flex justify-content-end cinput" id="channelForm" method="post">
+        <form action="{{ url_for('createChannel') }}" class="form-inline d-flex justify-content-end cinput" method="POST" id="channelForm">
             <div class="form-group container cinput">
                 <input type="text" class="form-control" placeholder="Channel name" name="channel" id="channelInput" required></input>
                 <button class="btn btn-primary" type="submit">Create channel...</button>
