@@ -82,4 +82,8 @@ ol {
   justify-content: flex-end;
 }
 
+.display-false {
+  display: none;
+}
+
 /*# sourceMappingURL=styles.css.map */

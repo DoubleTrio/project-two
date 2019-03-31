@@ -9,8 +9,9 @@ socketio = SocketIO(app)
 app.secret_key = "Super secret"
 
 chatLimit = 100
-rooms = {}
+channels = {}
 names = []
+channelList = []
 
 # C:\Users\kacey.la\AppData\Local\Programs\Python\Python37-32\Scripts
 @app.route("/")
@@ -47,5 +48,12 @@ def sendMessage():
 @app.route("/channel", methods=['POST'])
 def createChannel():
     channel = request.form.get('channel')
+
+    if len(channel) > 10:
+        return jsonify({"success": False, "error": "Channels must be 10 characters or less"})
+    elif channel in channelList:
+        return jsonify({"success": False, "error": "Sorry, the channel is already made"})
+    
+    channelList.append(channel)
     return jsonify({"success": True, "channel": channel})
   

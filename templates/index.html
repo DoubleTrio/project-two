@@ -5,13 +5,16 @@
 
 
     {% if session["logged-in"] %}
-    
-        <form action="{{ url_for('createChannel') }}" class="form-inline d-flex justify-content-end cinput" method="POST" id="channelForm">
+    <!-- action="{{ url_for('createChannel') }}"  method="POST" -->
+    <div>
+        <form class="form-inline d-flex justify-content-end cinput" id="channelForm" onsubmit="return false">
             <div class="form-group container cinput">
-                <input type="text" class="form-control" placeholder="Channel name" name="channel" id="channelInput" required></input>
-                <button class="btn btn-primary" type="submit">Create channel...</button>
+                <input type="text" class="form-control" placeholder="Channel name..." name="channel" id="channelInput" required></input>
+                <button class="btn btn-primary" type="submit">Create channel</button>
             </div>
         </form>
+        <!-- <small>Channel must be 10 characters or less</small> -->
+    </div>
 
 
         
