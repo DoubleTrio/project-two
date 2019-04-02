@@ -12,8 +12,8 @@ app.secret_key = "Super secret"
 chatLimit = 100
 channels = {}
 users = []
-channelData = []
-channelList = []
+
+
 
 class Channel:
     def __init__(self, name):
@@ -41,7 +41,8 @@ class Message:
 def index():
     if 'logged-in' not in session:
         session["logged-in"] = False
-    return render_template("index.html")
+
+    return render_template("index.html", channels = channels)
 
 @app.route("/username", methods=['POST'])
 def usernameHandler():
@@ -49,7 +50,7 @@ def usernameHandler():
     if len(username) > 10:
         flash("Username must be 10 characters or less")
     elif username not in users:
-        names.append(username)
+        users.append(username)
         session["logged-in"] = True
         session["username"] = username
         flash("You may start chatting!")        
@@ -74,10 +75,19 @@ def createChannel():
 
     if len(channel) > 10:
         return jsonify({"success": False, "error": "Channels must be 10 characters or less"})
-    elif channel in channelList:
+    elif channel in channels:
         return jsonify({"success": False, "error": "Sorry, the channel is already made"})
     
-    channelData.append(Channel(channel))
-    channelList.append(channel)
+    channels[channel] = Channel(channel)
     return jsonify({"success": True, "channel": channel})
   
+@socketio.on('create channel')
+def CreateChannel(data):
+    channel = data["channel"]
+    if len(channel) > 10:
+        return False
+    elif channel in channels:
+        return False
+    channels[channel] = Channel(channel)
+    print("Hello")
+    emit("add channel", channel, broadcast=True)

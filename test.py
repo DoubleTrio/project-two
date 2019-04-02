@@ -1,4 +1,4 @@
-lis = []
+
 class Channel:
     def __init__(self, name):
         self.name = name
@@ -25,6 +25,7 @@ class Message:
 
 
 def main():
+    channels = {}
     c1 = Channel(name="Chrome") 
     c2 = Channel(name="Carl") 
     m1 = Message("Bob", "Hello there!", "r")
@@ -33,13 +34,11 @@ def main():
     c1.add_message(m1)
     c1.add_message(m2)
     c1.add_message(m3)
-    c1.print_info()
-    lis.append(c1)
-    lis.append(c2)
     c2.add_message(m1)
-    
-    for i in lis:
-        print(i.messages)
-
+    channels[c1.name] = c1
+    channels[c2.name] = c2
+    print(channels)
+    if c1.name in channels:
+        print(True)
 if __name__ == "__main__":
     main()
