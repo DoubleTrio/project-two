@@ -25,9 +25,10 @@
         </ol>
     </div>
 
-    <form action="{{ url_for('sendMessage') }}" method="post" class="mform form-inline">
+    <!-- action="{{ url_for('sendMessage') }}" method="post" -->
+    <form class="mform form-inline" id="messageForm">
         <div class="form-group container minput">
-            <input type="text" class="form-control" placeholder="Message..." name="message" required></input>
+            <input type="text" class="form-control" placeholder="Message..." name="message" id="messageInput"></input>
             <button class="btn btn-primary" type="submit">Send</button>
         </div>
     </form>

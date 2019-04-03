@@ -40,5 +40,8 @@ def main():
     print(channels)
     if c1.name in channels:
         print(True)
+
+    a, b, c = 1, 2, 3
+    print(a, b, c)    
 if __name__ == "__main__":
     main()

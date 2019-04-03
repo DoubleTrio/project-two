@@ -22,6 +22,8 @@ class Channel:
     
     def add_message(self, m):
         self.messages.append(m)
+        if len(self.messages) == 100:
+            self.messages.pop()
     
     def print_info(self):
         print(f"Channel name: {self.name}")
@@ -72,14 +74,15 @@ def sendMessage():
 @app.route("/channel", methods=['POST'])
 def createChannel():
     channel = request.form.get('channel')
+    return 'r'
 
-    if len(channel) > 10:
-        return jsonify({"success": False, "error": "Channels must be 10 characters or less"})
-    elif channel in channels:
-        return jsonify({"success": False, "error": "Sorry, the channel is already made"})
+#     if len(channel) > 10:
+#         return jsonify({"success": False, "error": "Channels must be 10 characters or less"})
+#     elif channel in channels:
+#         return jsonify({"success": False, "error": "Sorry, the channel is already made"})
     
-    channels[channel] = Channel(channel)
-    return jsonify({"success": True, "channel": channel})
+#     channels[channel] = Channel(channel)
+#     return jsonify({"success": True, "channel": channel})
   
 @socketio.on('create channel')
 def CreateChannel(data):
@@ -91,3 +94,10 @@ def CreateChannel(data):
     channels[channel] = Channel(channel)
     print("Hello")
     emit("add channel", channel, broadcast=True)
+
+@socketio.on('store message')
+def storeMessage(data):
+    message, sender, date, channel = data["message"], data["sender"], data["date"], data["channel"]
+    channelMessage = Message(message, sender, date)
+    channels[channel].append(channelMessage)
+    emit("send message", message, broadcast=True)

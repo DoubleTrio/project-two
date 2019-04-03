@@ -16,7 +16,7 @@
                     <h1 class="menu-heading">Flack</h1>
 
                     {% if session["logged-in"] %}
-                        <h5 class="tag">Hello, {{ session["username"] }}!</h5>
+                        <h5 id="tag">Hello, <span id='username'>{{ session["username"] }}</span>!</h5>
                     {% endif %}
                     
                 </div>
