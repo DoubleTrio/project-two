@@ -35,10 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             var time = hours + ':' + minutes + ' ' + timeConvention;
             var date = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
-            var username = document.querySelector('#username').innerHTML;
-            console.log(username)
-            console.log(date) 
-            console.log(time) 
+            var sender = document.querySelector('#username').innerHTML;
+            socket.emit('store message', {'sender': sender, 'message': message, 'channel': 'Placeholder', 'date': date, 'time': time});
             return false;
         }
     
@@ -54,6 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("well");
     });
 
+    socket.on('send message', (data) => {
+        // Replace these with JS template and also use it to format the text messages
+        console.log("Yee haw!");
+        console.log(data);
+    });
 
 });
     

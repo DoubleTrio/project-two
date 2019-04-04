@@ -33,10 +33,11 @@ class Channel:
             print(message.sender, message.message)
 
 class Message:
-    def __init__(self, sender, message, date):
+    def __init__(self, sender, message, date, time):
         self.sender = sender
         self.message = message
         self.date = date
+        self.time = time
 
 # C:\Users\kacey.la\AppData\Local\Programs\Python\Python37-32\Scripts
 @app.route("/")
@@ -92,12 +93,11 @@ def CreateChannel(data):
     elif channel in channels:
         return False
     channels[channel] = Channel(channel)
-    print("Hello")
     emit("add channel", channel, broadcast=True)
 
 @socketio.on('store message')
 def storeMessage(data):
-    message, sender, date, channel = data["message"], data["sender"], data["date"], data["channel"]
-    channelMessage = Message(message, sender, date)
-    channels[channel].append(channelMessage)
+    message, sender, date, time, channel = data["message"], data["sender"], data["date"], data["time"], data["channel"]
+    channelMessage = Message(message, sender, date, time)
+    # channels[channel].append(channelMessage)
     emit("send message", message, broadcast=True)
