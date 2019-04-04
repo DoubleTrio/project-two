@@ -15,11 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         document.querySelector('#messageForm').onsubmit = () => {
             const message = document.querySelector('#messageInput').value;
-            console.log(message);
             
             var now = new Date();
             
-            console.log(now.getHours(), now.getMinutes(), now.getMonth(), now.getDay(), now.getFullYear());
+            
             document.querySelector('#messageInput').value = '';
             var hours = now.getHours();
             if (hours > 12) {
@@ -55,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on('send message', (data) => {
         // Replace these with JS template and also use it to format the text messages
         console.log("Yee haw!");
-        console.log(data);
+        console.log(data.message, data.time, data.date, data.sender);
     });
 
 });

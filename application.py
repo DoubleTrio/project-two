@@ -100,4 +100,4 @@ def storeMessage(data):
     message, sender, date, time, channel = data["message"], data["sender"], data["date"], data["time"], data["channel"]
     channelMessage = Message(message, sender, date, time)
     # channels[channel].append(channelMessage)
-    emit("send message", message, broadcast=True)
+    emit("send message", data, broadcast=True)
