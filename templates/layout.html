@@ -8,6 +8,28 @@
         <meta charset="utf-8">
         <script src="{{ url_for('static', filename='index.js') }}"></script>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+        <script id="sent-message" type="text/x-handlebars-template">
+            <div class="list-group-item flex-column align-items-start message-format">
+                <div class="d-flex w-100 justify-content-between">
+                    <div class="mb-1 nametag">
+                        {% raw -%}
+                            {{ sender }}
+                        {%- endraw %}
+                    </div>
+                    <small class="text-muted">
+                        {% raw -%} 
+                            {{ date }} 
+                        {%- endraw %}
+                    </small>
+                </div>
+                <p class="mb-1">
+                    {% raw -%}
+                        {{ message }} 
+                    {%- endraw %}
+                </p>    
+            </div>
+        </script>
     </head>
 
         <body class="row no-gutters">
@@ -26,23 +48,6 @@
                     <ol>
                         <!--Add a value for each channel when accessed-->
                         <a href="#" class="room">General</a>
-                        <!-- <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a>
-                        <a href="#" class="room">Room1</a> -->
                     </ol>
                 </div>
             </nav>

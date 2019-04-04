@@ -45,16 +45,26 @@ ol {
 }
 
 /*Body*/
-/*chat*/
-#chatlog {
+/*Chat*/
+#chatbox {
   height: 60vh;
   overflow-y: scroll;
   overflow-x: hidden;
-  border: 0.1em solid black;
+  border: 0.2em solid black;
 }
 
 .chatHolder {
   padding-top: 3em;
+}
+
+.room-title {
+  font-weight: bold;
+  padding-bottom: 0.2em;
+}
+
+.nametag {
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
 .mform {

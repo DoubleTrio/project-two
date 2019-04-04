@@ -24,20 +24,12 @@ class Channel:
         self.messages.append(m)
         if len(self.messages) == 100:
             self.messages.pop()
-    
-    def print_info(self):
-        print(f"Channel name: {self.name}")
-        print()
-        print("Messages:")
-        for message in self.messages:
-            print(message.sender, message.message)
 
 class Message:
-    def __init__(self, sender, message, date, time):
+    def __init__(self, sender, message, date):
         self.sender = sender
         self.message = message
         self.date = date
-        self.time = time
 
 # C:\Users\kacey.la\AppData\Local\Programs\Python\Python37-32\Scripts
 @app.route("/")
@@ -60,44 +52,22 @@ def usernameHandler():
     else:
         flash("Sorry, this username is already taken")
     return redirect(url_for('index'))
-
-@app.route("/message", methods=['POST'])
-def sendMessage():
-    message = request.form.get('message')
-
-    if message:
-        flash(f"Send this data: {message}")
-    if message == "logout":
-        session.clear()
-    return redirect(url_for('index'))
-
-
-@app.route("/channel", methods=['POST'])
-def createChannel():
-    channel = request.form.get('channel')
-    return 'r'
-
-#     if len(channel) > 10:
-#         return jsonify({"success": False, "error": "Channels must be 10 characters or less"})
-#     elif channel in channels:
-#         return jsonify({"success": False, "error": "Sorry, the channel is already made"})
-    
-#     channels[channel] = Channel(channel)
-#     return jsonify({"success": True, "channel": channel})
   
 @socketio.on('create channel')
-def CreateChannel(data):
+def createChannel(data):
     channel = data["channel"]
+
     if len(channel) > 10:
         return False
     elif channel in channels:
         return False
+
     channels[channel] = Channel(channel)
     emit("add channel", channel, broadcast=True)
 
 @socketio.on('store message')
 def storeMessage(data):
-    message, sender, date, time, channel = data["message"], data["sender"], data["date"], data["time"], data["channel"]
-    channelMessage = Message(message, sender, date, time)
-    # channels[channel].append(channelMessage)
+    message, sender, date, channel = data["message"], data["sender"], data["date"], data["channel"]
+    channelMessage = Message(message, sender, date)
+    # channels[channel].addMessage(channelMessage)
     emit("send message", data, broadcast=True)

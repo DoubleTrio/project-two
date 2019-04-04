@@ -1,15 +1,11 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
-
-
     {% if session["logged-in"] %}
-    <!-- action="{{ url_for('createChannel') }}"  method="POST" -->
     <div>
         <form class="form-inline d-flex justify-content-end cinput" id="channelForm" onsubmit="return false">
             <div class="form-group container cinput">
-                <input type="text" class="form-control" placeholder="Channel name..." name="channel" id="channelInput" required></input>
+                <input type="text" class="form-control" placeholder="Channel name..." id="channelInput" required></input>
                 <button class="btn btn-primary" type="submit">Create channel</button>
             </div>
         </form>
@@ -17,15 +13,24 @@
     </div>
 
 
-        
+    <!--Source code taken from Bootstrap and modified: https://getbootstrap.com/docs/4.0/components/list-group/-->
     <div class="col-9 chatHolder container">
-        <ol id="chatlog">
-            <li>Hello friend!</li>
-            <li>Hello friend!</li>
-        </ol>
+        <h4 class="d-flex justify-content-center">General</h4>
+        <div id="chatbox">
+            <div class="list-group" id="chatlog">
+                <div class="list-group-item flex-column align-items-start">
+                    
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="mb-1 nametag">Bob</div>
+                        <small class="text-muted">4/4/2019 2:00 PM</small>
+                        
+                    </div>
+                    <p class="mb-1">message</p>    
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- action="{{ url_for('sendMessage') }}" method="post" -->
     <form class="mform form-inline" id="messageForm">
         <div class="form-group container minput">
             <input type="text" class="form-control" placeholder="Message..." name="message" id="messageInput"></input>
@@ -41,14 +46,14 @@
         </div>
     </form>
     {% endif %}
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-
+    <!--Source code taken from the flash source code: http://flask.pocoo.org/docs/1.0/patterns/flashing/-->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
 {% endblock %}
