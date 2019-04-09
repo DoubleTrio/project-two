@@ -44,12 +44,17 @@ ol {
   font-family: "Open Sans", sans-serif;
 }
 
+.logout {
+  color: #8EDCE6;
+}
+
 /*Body*/
 /*Chat*/
 #chatbox {
   height: 60vh;
   overflow-y: scroll;
   overflow-x: hidden;
+  overflow-wrap: break-word;
   border: 0.2em solid black;
 }
 
@@ -74,7 +79,7 @@ ol {
 }
 
 .form-inline .form-control {
-  width: 94%;
+  width: 93.7%;
 }
 
 .cinput {
@@ -84,7 +89,7 @@ ol {
 }
 
 .cinput.form-inline .form-control {
-  width: 20%;
+  width: 20% !important;
 }
 
 .channelForm {

@@ -21,8 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 a.innerHTML = channel;
                 a.classList.add('room')
                 a.setAttribute("href", "#");
-                document.querySelector('ol').append(a);
-                
+                document.querySelector('ol').append(a); 
                 document.querySelector('#channelInput').value = '';
             } 
 

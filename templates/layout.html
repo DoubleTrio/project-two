@@ -10,6 +10,7 @@
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
         <script id="sent-message" type="text/x-handlebars-template">
+            <!--Source code taken from Bootstrap and modified: https://getbootstrap.com/docs/4.0/components/list-group/-->
             <div class="list-group-item flex-column align-items-start message-format">
                 <div class="d-flex w-100 justify-content-between">
                     <div class="mb-1 nametag">
@@ -33,25 +34,30 @@
     </head>
 
         <body class="row no-gutters">
-            <nav class="col-2">
+            <nav class="col-lg-2 col-sm-4">
                 <div class="thead">
                     <h1 class="menu-heading">Flack</h1>
 
                     {% if session["logged-in"] %}
                         <h5 id="tag">Hello, <span id='username'>{{ session["username"] }}</span>!</h5>
+                        <small><a class="room logout" href="{{ url_for('logout') }}">Logout</a></small>
                     {% endif %}
-                    
                 </div>
                 
                 <div class="chatrooms">
-                    <h5 class="menu-heading">Chatrooms</h5>
-                    <ol>
+                    {% if session["logged-in"] %}
+                        <h5 class="menu-heading">Chatrooms</h5>
+                    
+                        <ol>
                         <!--Add a value for each channel when accessed-->
-                        <a href="#" class="room">General</a>
-                    </ol>
+                            {% for channel in channels %}
+                                <a href="#" class="room">{{channel}}</a>
+                            {% endfor %}
+                        </ol>
+                    {% endif %}
                 </div>
             </nav>
-            <div class="col-10 chat-side">
+            <div class="col-lg-10 col-sm-8 chat-side">
                 {% block body %} {% endblock %}
                 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

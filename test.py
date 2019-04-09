@@ -42,6 +42,14 @@ def main():
         print(True)
 
     a, b, c = 1, 2, 3
-    print(a, b, c)    
+    print(a, b, c)  
+    doc = {'c1': c1, 'c2':c2, 'c3': c1}
+    channelList = []
+    for i in doc:
+        channelList.append(doc[i].name)
+    print(channelList)
+    print(channels[c1.name].messages[0].sender)
+    for i in channels[c1.name].messages:
+        print (i.message)
 if __name__ == "__main__":
     main()

@@ -1,19 +1,13 @@
 import os
 import requests
-import datetime
 from flask import Flask, session, render_template, request, url_for, jsonify, flash, abort, redirect
 from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
-app.secret_key = "Super secret"
-
-chatLimit = 100
-channels = {}
-users = []
-
-
+app.secret_key = "Super secret, don't tell uwu"
+# C:\Users\kacey.la\AppData\Local\Programs\Python\Python37-32\Scripts
 
 class Channel:
     def __init__(self, name):
@@ -31,13 +25,24 @@ class Message:
         self.message = message
         self.date = date
 
-# C:\Users\kacey.la\AppData\Local\Programs\Python\Python37-32\Scripts
+channels = {"General": Channel("General")}
+users = []
+
 @app.route("/")
 def index():
     if 'logged-in' not in session:
         session["logged-in"] = False
+    lastChannel = "General"
+    currentChannelList = []
+    for channel in channels:
+        currentChannelList.append(channels[channel].name)
+    messages = channels[lastChannel].messages
+    return render_template("index.html", channels = currentChannelList, messages = messages, channelName = lastChannel)
 
-    return render_template("index.html", channels = channels)
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("index"))
 
 @app.route("/username", methods=['POST'])
 def usernameHandler():
@@ -48,11 +53,14 @@ def usernameHandler():
         users.append(username)
         session["logged-in"] = True
         session["username"] = username
-        flash("You may start chatting!")        
     else:
         flash("Sorry, this username is already taken")
     return redirect(url_for('index'))
-  
+
+@app.route("/testing")
+def channel():
+    return "Hallo"
+    
 @socketio.on('create channel')
 def createChannel(data):
     channel = data["channel"]
@@ -68,6 +76,6 @@ def createChannel(data):
 @socketio.on('store message')
 def storeMessage(data):
     message, sender, date, channel = data["message"], data["sender"], data["date"], data["channel"]
-    channelMessage = Message(message, sender, date)
-    # channels[channel].addMessage(channelMessage)
+    channelMessage = Message(sender, message, date)
+    channels[channel].add_message(channelMessage)
     emit("send message", data, broadcast=True)

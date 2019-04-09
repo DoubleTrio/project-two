@@ -12,21 +12,19 @@
         <!-- <small>Channel must be 10 characters or less</small> -->
     </div>
 
-
-    <!--Source code taken from Bootstrap and modified: https://getbootstrap.com/docs/4.0/components/list-group/-->
     <div class="col-9 chatHolder container">
-        <h4 class="d-flex justify-content-center">General</h4>
+        <h4 class="d-flex justify-content-center">{{channelName}}</h4>
         <div id="chatbox">
             <div class="list-group" id="chatlog">
-                <div class="list-group-item flex-column align-items-start">
-                    
-                    <div class="d-flex w-100 justify-content-between">
-                        <div class="mb-1 nametag">Bob</div>
-                        <small class="text-muted">4/4/2019 2:00 PM</small>
-                        
+                {% for message in messages %}
+                    <div class="list-group-item flex-column align-items-start message-format">
+                        <div class="d-flex w-100 justify-content-between">
+                            <div class="mb-1 nametag">{{ message.sender }}</div>
+                            <small class="text-muted">{{ message.date }} </small>
+                        </div>
+                        <p class="mb-1">{{ message.message }}</p>    
                     </div>
-                    <p class="mb-1">message</p>    
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -39,12 +37,13 @@
     </form>
 
     {% else %}
-    <form action="{{ url_for('usernameHandler') }}" method="post" class="form-inline">
+    <form action="{{ url_for('usernameHandler') }}" method="post" class="form-inline d-flex justify-content-center uform">
         <div class="form-group container uinput">
-            <input type="text" class="form-control" placeholder="Enter username" name="username" required></input>
+            <input type="text" class="form-control" placeholder="Enter username..." name="username" required></input>
             <button class="btn btn-primary" type="submit">Login</button>
         </div>
     </form>
+    <small class="char"> Must be 10 characters or less </small>
     {% endif %}
     <!--Source code taken from the flash source code: http://flask.pocoo.org/docs/1.0/patterns/flashing/-->
     {% with messages = get_flashed_messages() %}
