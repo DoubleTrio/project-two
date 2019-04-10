@@ -59,15 +59,25 @@ def usernameHandler():
         flash("Sorry, this username is already taken")
     return redirect(url_for('index'))
 
-@app.route("/channel/<string:channel>")
-def visitChannel(channel):
-
-    return channel
+# @app.route("/channel/<string:channel>")
+# def visitChannel(channel):
+#     return channel
 
 @app.route("/channel")
 def changeChannel():
+    return "Hello"
 
-    return "Hallo"
+# AJAX request 
+@app.route("/channel/exists", methods=["POST"])
+def checkChannel():
+    channel = request.form.get('channel')
+    if channel in channels.keys():
+        session["last-channel"] = channel
+        return jsonify({"success": True, "channel": channel})
+    else:
+        session["last-channel"] = "General"
+        return jsonify({"success": False, "channel": "General"})
+
 @socketio.on('create channel')
 def createChannel(data):
     channel = data["channel"]

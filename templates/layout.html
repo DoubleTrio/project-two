@@ -13,31 +13,14 @@
             <!--Source code taken from Bootstrap and modified: https://getbootstrap.com/docs/4.0/components/list-group/-->
             <div class="list-group-item flex-column align-items-start message-format">
                 <div class="d-flex w-100 justify-content-between">
-                    <div class="mb-1 nametag">
-                        {% raw -%}
-                            {{ sender }}
-                        {%- endraw %}
-                    </div>
-                    <small class="text-muted">
-                        {% raw -%} 
-                            {{ date }} 
-                        {%- endraw %}
-                    </small>
+                    <div class="mb-1 nametag">{% raw -%}{{ sender }}{%- endraw %}</div>
+                    <small class="text-muted">{% raw -%}{{ date }}{%- endraw %}</small>
                 </div>
-                <p class="mb-1">
-                    {% raw -%}
-                        {{ message }} 
-                    {%- endraw %}
-                </p>    
+                <p class="mb-1">{% raw -%}{{ message }}{%- endraw %}</p>    
             </div>
         </script>
         <script id="channel" type="text/x-handlebars-template">
-            
-            <a href="#" class="room">
-                {% raw -%}
-                    {{channel}}
-                {%- endraw %}
-            </a>
+            <a href="#" class="room">{% raw -%}{{channel}}{%- endraw %}</a>
         </script>
     </head>
 

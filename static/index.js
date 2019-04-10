@@ -1,8 +1,28 @@
 // Todo: Use Ajax to save channel
+// Reset localStorage to general when flask server is down, aka make ajax request at the beginning 
 document.addEventListener('DOMContentLoaded', () => {
 
     if (!localStorage.getItem('stored-channel'))
         localStorage.setItem('stored-channel', 'General');
+    
+    const request = new XMLHttpRequest();
+    request.open('POST', '/channel/exists');
+    request.onload = () => {
+        const data = JSON.parse(request.responseText);
+
+        if (data.success) {
+            console.log(data.channel)
+        } 
+        else {
+            console.log(data.channel)
+            localStorage.setItem('stored-channel', data.channel);
+        }
+    }
+
+    const data = new FormData();
+    data.append('channel', localStorage.getItem('stored-channel'));
+    request.send(data);
+
     console.log(localStorage.getItem('stored-channel'), "Hallo");
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     socket.on('connect', () => {
@@ -63,7 +83,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Creating a link for the new channel
         const template = Handlebars.compile(document.querySelector('#channel').innerHTML)
         const content = template({'channel': data});
+     
         document.querySelector('#channel-list').innerHTML += content;
+
+        document.querySelectorAll('.room').forEach(a => {
+            a.onclick = () => {
+                const channel = a.innerHTML;
+                localStorage.setItem('stored-channel', channel);
+            }
+        });
+
     });
 
     socket.on('send message', (data) => {

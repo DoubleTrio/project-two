@@ -51,5 +51,7 @@ def main():
     print(channels[c1.name].messages[0].sender)
     for i in channels[c1.name].messages:
         print (i.message)
+    
+    print('d1' in doc)
 if __name__ == "__main__":
     main()
