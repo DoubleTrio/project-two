@@ -31,6 +31,14 @@
                 </p>    
             </div>
         </script>
+        <script id="channel" type="text/x-handlebars-template">
+            
+            <a href="#" class="room">
+                {% raw -%}
+                    {{channel}}
+                {%- endraw %}
+            </a>
+        </script>
     </head>
 
         <body class="row no-gutters">
@@ -48,7 +56,7 @@
                     {% if session["logged-in"] %}
                         <h5 class="menu-heading">Chatrooms</h5>
                     
-                        <ol>
+                        <ol id='channel-list'>
                         <!--Add a value for each channel when accessed-->
                             {% for channel in channels %}
                                 <a href="#" class="room">{{channel}}</a>

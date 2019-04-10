@@ -1,5 +1,6 @@
 import os
 import requests
+import json
 from flask import Flask, session, render_template, request, url_for, jsonify, flash, abort, redirect
 from flask_socketio import SocketIO, emit
 
@@ -28,16 +29,17 @@ class Message:
 channels = {"General": Channel("General")}
 users = []
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
     if 'logged-in' not in session:
         session["logged-in"] = False
-    lastChannel = "General"
+    if 'last-channel' not in session:
+         session["last-channel"] = "General"
     currentChannelList = []
     for channel in channels:
         currentChannelList.append(channels[channel].name)
-    messages = channels[lastChannel].messages
-    return render_template("index.html", channels = currentChannelList, messages = messages, channelName = lastChannel)
+    messages = channels[session["last-channel"]].messages
+    return render_template("index.html", channels = currentChannelList, messages = messages, channelName = session["last-channel"])
 
 @app.route("/logout")
 def logout():
@@ -57,10 +59,15 @@ def usernameHandler():
         flash("Sorry, this username is already taken")
     return redirect(url_for('index'))
 
-@app.route("/testing")
-def channel():
+@app.route("/channel/<string:channel>")
+def visitChannel(channel):
+
+    return channel
+
+@app.route("/channel")
+def changeChannel():
+
     return "Hallo"
-    
 @socketio.on('create channel')
 def createChannel(data):
     channel = data["channel"]

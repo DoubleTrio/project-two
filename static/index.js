@@ -1,3 +1,4 @@
+// Todo: Use Ajax to save channel
 document.addEventListener('DOMContentLoaded', () => {
 
     if (!localStorage.getItem('stored-channel'))
@@ -41,14 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
             date += ' ' + time;
             
             // Submitting the data to store server side
-            socket.emit('store message', {'sender': sender, 'message': message, 'channel': 'General', 'date': date});
+            socket.emit('store message', {'sender': sender, 'message': message, 'channel': localStorage.getItem('stored-channel'), 'date': date});
             return false;
         }
 
         document.querySelectorAll('.room').forEach(a => {
             a.onclick = () => {
-                console.log(a.innerHTML)
-                localStorage.setItem('stored-channel', a.innerHTML);
+                const channel = a.innerHTML;
+                console.log(channel)
+                localStorage.setItem('stored-channel', channel);
             }
         });
 
@@ -59,12 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on('add channel', (data) => {
         // Replace these with JS template and also use it to format the text messages
         // Creating a link for the new channel
-        const a = document.createElement('a');
-        a.innerHTML = data;
-        a.classList.add('room');
-        a.setAttribute("href", "#");
-        document.querySelector('ol').append(a);
-
+        const template = Handlebars.compile(document.querySelector('#channel').innerHTML)
+        const content = template({'channel': data});
+        document.querySelector('#channel-list').innerHTML += content;
     });
 
     socket.on('send message', (data) => {
